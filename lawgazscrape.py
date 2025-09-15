@@ -5,9 +5,10 @@ import pandas as pd
 import spacy
 from bs4 import BeautifulSoup
 import unicodedata
+import undetected_chromedriver as uc
 
 # Paths
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../"))  # repo root
+BASE_DIR = os.path.dirname(__file__)  # repo root
 GOLDEN_DIR = os.path.join(BASE_DIR, "golden_dataset")
 os.makedirs(GOLDEN_DIR, exist_ok=True)
 EXCEL_FILE = os.path.join(GOLDEN_DIR, "temp_lawgazette.xlsx")  # temporary
@@ -167,7 +168,6 @@ def save_cleaned_csv(records):
 
 def crawl_law_gazette(start_year=2025, driver=None):
     if driver is None:
-        import undetected_chromedriver as uc
         driver = uc.Chrome()
 
     all_records = []
@@ -194,7 +194,6 @@ if __name__ == "__main__":
     driver = None
     scraped_records = []
     try:
-        import undetected_chromedriver as uc
         driver = uc.Chrome()
         scraped_records = crawl_law_gazette(start_year=2025, driver=driver)
 
